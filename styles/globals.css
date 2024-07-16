@@ -18,16 +18,17 @@
 
 body {
   color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+  background: #bdb76b;
 }
 
 @layer utilities {
   .text-balance {
     text-wrap: balance;
   }
+}
+
+/* not a fan of using !important but I can't figure out how to set the slick-track elements display to flex */
+.slick-track {
+  display: flex !important;
+  gap: 0.8rem;
 }
