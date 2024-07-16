@@ -15,4 +15,4 @@ bun dev
 ```
 
 ## DEMO
-[Quick Demo](https://github.com/user-attachments/assets/dc83aa7d-8f03-4d05-86f1-b944131d9700)
+[Quick Demo](https://youtu.be/kJa8CtHNFQc)
