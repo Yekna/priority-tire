@@ -15,4 +15,4 @@ bun dev
 ```
 
 ## DEMO
-[Quick Demo](https://youtu.be/kJa8CtHNFQc)
+[Quick Demo :)](https://youtu.be/kJa8CtHNFQc)
