@@ -7,9 +7,8 @@ import client from "@/apollo";
 import magento from "@/apollo-magento";
 import Rebates from "@/components/Rebates";
 import Product from "@/components/Product";
-import Slider from "react-slick";
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
+import Slider from "react-multi-carousel";
+import "react-multi-carousel/lib/styles.css";
 import Promotion from "@/components/Promotion";
 
 const inter = Inter({ subsets: ["latin"] });
@@ -19,28 +18,6 @@ export default function Home({
   popularProducts,
   promotions,
 }: InferGetStaticPropsType<typeof getStaticProps>) {
-  const settings = {
-    dots: true,
-    infinite: true,
-    speed: 500,
-    slidesToShow: 3,
-    slidesToScroll: 1,
-    responsive: [
-      {
-        breakpoint: 1280,
-        settings: {
-          slidesToShow: 2,
-        },
-      },
-      {
-        breakpoint: 768,
-        settings: {
-          slidesToShow: 1,
-        },
-      },
-    ],
-  };
-
   return (
     <main
       className={`flex flex-col items-center gap-5 justify-between ${inter.className}`}
@@ -77,7 +54,48 @@ export default function Home({
         <Typography className="text-center text-xl sm:text-3xl">
           Popular Products
         </Typography>
-        <Slider {...settings}>
+        <Slider
+          additionalTransfrom={0}
+          arrows
+          centerMode={false}
+          draggable
+          focusOnSelect={false}
+          infinite
+          keyBoardControl
+          minimumTouchDrag={80}
+          renderArrowsWhenDisabled={false}
+          renderButtonGroupOutside={false}
+          renderDotsOutside={false}
+          responsive={{
+            desktop: {
+              breakpoint: {
+                max: 100000,
+                min: 1280,
+              },
+              items: 3,
+            },
+            tablet: {
+              breakpoint: {
+                max: 1280,
+                min: 768,
+              },
+              items: 2,
+            },
+            mobile: {
+              breakpoint: {
+                max: 768,
+                min: 0,
+              },
+              items: 1,
+            },
+          }}
+          rewind={false}
+          rewindWithAnimation={false}
+          rtl={false}
+          shouldResetAutoplay
+          slidesToSlide={1}
+          swipeable
+        >
           {popularProducts.map((product) => (
             <Product key={product.url_key} product={product} />
           ))}
