@@ -81,10 +81,10 @@ export default function ProductDetailsPage(
                     label="Choose an Option"
                     onChange={handleOptionChange}
                   >
-                    {params.product.variants.map((variant) => (
+                    {params.product.variants.map((variant, i) => (
                       <MenuItem
                         onClick={() => setProduct(variant.product)}
-                        key={variant.product.sku}
+                        key={variant.product.sku + i}
                         value={variant.product.sku}
                       >
                         {variant.product.name}
@@ -140,8 +140,8 @@ export default function ProductDetailsPage(
                 </div>
                 <div className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
                   <ul>
-                    {product.categories.map((category) => (
-                      <li key={category.name}>{category.name}</li>
+                    {product.categories.map((category, i) => (
+                      <li key={category.name + i}>{category.name}</li>
                     ))}
                   </ul>
                 </div>
