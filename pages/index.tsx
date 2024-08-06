@@ -10,6 +10,7 @@ import Product from "@/components/Product";
 import Slider from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 import Promotion from "@/components/Promotion";
+import Head from "next/head";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -19,87 +20,92 @@ export default function Home({
   promotions,
 }: InferGetStaticPropsType<typeof getStaticProps>) {
   return (
-    <main
-      className={`flex flex-col items-center gap-5 justify-between ${inter.className}`}
-    >
-      <section className="hero w-full">
-        {/* use different image on resolutions over 768px */}
-        <picture>
-          <source srcSet="/hero.jpg" media="(min-width: 768px)" />
-          <Image
-            className="w-full"
-            src="/hero-mobile.jpg"
-            width={5000}
-            height={5000}
-            alt="hero"
-          />
-        </picture>
-      </section>
-      <section className="promotion max-w-[1280px] space-y-5">
-        <Rebates rebates={rebates} />
-        <Typography variant="h2" className="text-center text-xl sm:text-3xl">
-          Save Now With Our Promotions
-        </Typography>
-        <ul className="flex gap-5">
-          {promotions.map((promotion, i) => (
-            <li key={i}>
-              <Promotion promotion={promotion} />
-            </li>
-          ))}
-        </ul>
-      </section>
-      <section className="popular-products w-4/5 max-w-[1280px] space-y-5">
-        <Typography variant="h2" className="text-center text-xl sm:text-3xl">
-          Popular Products
-        </Typography>
-        <Slider
-          additionalTransfrom={0}
-          arrows
-          centerMode={false}
-          draggable
-          focusOnSelect={false}
-          infinite
-          keyBoardControl
-          minimumTouchDrag={80}
-          renderArrowsWhenDisabled={false}
-          renderButtonGroupOutside={false}
-          renderDotsOutside={false}
-          responsive={{
-            desktop: {
-              breakpoint: {
-                max: 100000,
-                min: 1280,
+    <>
+      <Head>
+        <title>Priority Tire</title>
+      </Head>
+      <main
+        className={`flex flex-col items-center gap-5 justify-between ${inter.className}`}
+      >
+        <section className="hero w-full">
+          {/* use different image on resolutions over 768px */}
+          <picture>
+            <source srcSet="/hero.jpg" media="(min-width: 768px)" />
+            <Image
+              className="w-full"
+              src="/hero-mobile.jpg"
+              width={5000}
+              height={5000}
+              alt="hero"
+            />
+          </picture>
+        </section>
+        <section className="promotion max-w-[1280px] space-y-5">
+          <Rebates rebates={rebates} />
+          <Typography variant="h2" className="text-center text-xl sm:text-3xl">
+            Save Now With Our Promotions
+          </Typography>
+          <ul className="flex gap-5">
+            {promotions.map((promotion, i) => (
+              <li key={i}>
+                <Promotion promotion={promotion} />
+              </li>
+            ))}
+          </ul>
+        </section>
+        <section className="popular-products w-4/5 max-w-[1280px] space-y-5">
+          <Typography variant="h2" className="text-center text-xl sm:text-3xl">
+            Popular Products
+          </Typography>
+          <Slider
+            additionalTransfrom={0}
+            arrows
+            centerMode={false}
+            draggable
+            focusOnSelect={false}
+            infinite
+            keyBoardControl
+            minimumTouchDrag={80}
+            renderArrowsWhenDisabled={false}
+            renderButtonGroupOutside={false}
+            renderDotsOutside={false}
+            responsive={{
+              desktop: {
+                breakpoint: {
+                  max: 100000,
+                  min: 1280,
+                },
+                items: 3,
               },
-              items: 3,
-            },
-            tablet: {
-              breakpoint: {
-                max: 1280,
-                min: 768,
+              tablet: {
+                breakpoint: {
+                  max: 1280,
+                  min: 768,
+                },
+                items: 2,
               },
-              items: 2,
-            },
-            mobile: {
-              breakpoint: {
-                max: 768,
-                min: 0,
+              mobile: {
+                breakpoint: {
+                  max: 768,
+                  min: 0,
+                },
+                items: 1,
               },
-              items: 1,
-            },
-          }}
-          rewind={false}
-          rewindWithAnimation={false}
-          rtl={false}
-          shouldResetAutoplay
-          slidesToSlide={1}
-          swipeable
-        >
-          {popularProducts.map((product) => (
-            <Product key={product.url_key} product={product} />
-          ))}
-        </Slider>
-      </section>
-    </main>
+            }}
+            rewind={false}
+            rewindWithAnimation={false}
+            rtl={false}
+            shouldResetAutoplay
+            slidesToSlide={1}
+            swipeable
+          >
+            {popularProducts.map((product) => (
+              <Product key={product.url_key} product={product} />
+            ))}
+          </Slider>
+        </section>
+      </main>
+    </>
   );
 }
 

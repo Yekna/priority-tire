@@ -1,4 +1,3 @@
-import Header from "@/components/Header";
 import { Html, Head, Main, NextScript, DocumentProps, DocumentContext } from "next/document";
 import type { DocumentHeadTagsProps } from "@mui/material-nextjs/v14-pagesRouter";
 import { documentGetInitialProps, DocumentHeadTags } from "@mui/material-nextjs/v14-pagesRouter";

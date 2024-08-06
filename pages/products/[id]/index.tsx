@@ -16,6 +16,7 @@ import toast, { Toaster } from "react-hot-toast";
 import magento from "@/apollo-magento";
 import { gql } from "@apollo/client";
 import Link from "next/link";
+import Head from "next/head";
 
 const notify = () => toast.success("Added item to cart");
 
@@ -37,167 +38,176 @@ export default function ProductDetailsPage(
   const images = product.media_gallery.map(({ url }: { url: string }) => url);
 
   return (
-    <Box
-      className="space-y-5"
-      sx={{
-        maxWidth: "1200px",
-        mx: "auto",
-        bgcolor: "darkkhaki",
-        padding: 5,
-      }}
-    >
-      <Grid
-        container
-        sx={{ display: "flex", alignItems: "center" }}
-        spacing={1}
+    <>
+      <Head>
+        <title>{product.name}</title>
+      </Head>
+      <Box
+        className="space-y-5"
+        sx={{
+          maxWidth: "1200px",
+          mx: "auto",
+          bgcolor: "darkkhaki",
+          padding: 5,
+        }}
       >
-        <Grid xs={12} item md={6} mb="2rem">
-          <ImageCarousel images={images} />
-        </Grid>
-        {/* Product Details */}
-        <Grid item xs={12} md={6}>
-          <Box>
-            <Typography variant="h4" component="h1" gutterBottom>
-              {product.name}
-            </Typography>
-            <Typography variant="h6" color="text.secondary" gutterBottom>
-              ${product.price_range.minimum_price.regular_price.value}
-            </Typography>
-            {params.product.variants && (
-              <FormControl fullWidth sx={{ mb: 2 }}>
-                <InputLabel color="warning" id="option-label">Choose an Option</InputLabel>
-                <Select
-                  color="warning"
-                  labelId="option-label"
-                  id="option"
-                  value={option}
-                  label="Choose an Option"
-                  onChange={handleOptionChange}
-                >
-                  {params.product.variants.map((variant) => (
-                    <MenuItem
-                      onClick={() => setProduct(variant.product)}
-                      key={variant.product.sku}
-                      value={variant.product.sku}
-                    >
-                      {variant.product.name}
-                    </MenuItem>
-                  ))}
-                </Select>
-              </FormControl>
-            )}
-            <Box sx={{ display: "flex", alignItems: "center", mt: 2 }}>
-              <FormControl sx={{ mr: 2, width: "30%" }}>
-                <InputLabel color="warning" id="quantity-label">Quantity</InputLabel>
-                <Select
-                  color="warning"
-                  labelId="quantity-label"
-                  id="quantity"
-                  value={quantity.toString()}
-                  label="Quantity"
-                  onChange={handleQuantityChange}
-                >
-                  {[1, 2, 3, 4, 5].map((qty) => (
-                    <MenuItem key={qty} value={qty}>
-                      {qty}
-                    </MenuItem>
-                  ))}
-                </Select>
-              </FormControl>
-
-              {/* I couldn't find a way to get qty from magento. I can't disable the button */}
-              <Button
-                onClick={notify}
-                variant="contained"
-                color="warning"
-                fullWidth
-              >
-                Add to Cart
-              </Button>
-              <Toaster />
-            </Box>
-          </Box>
-        </Grid>
-      </Grid>
-      <div>
-        <Typography variant="h4" className="font-bold">
-          Specifications
-        </Typography>
-        <div>
-          {product.categories.length > 0 && (
-            <div className="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-              <div className="text-sm font-medium text-gray-500">
-                Categories
-              </div>
-              <div className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                <ul>
-                  {product.categories.map((category) => (
-                    <li key={category.name}>{category.name}</li>
-                  ))}
-                </ul>
-              </div>
-            </div>
-          )}
-          {product.rating_summary !== 0 && (
-            <div className="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-              <div className="text-sm font-medium text-gray-500">Rating</div>
-              <div className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                {product.rating_summary} / 100
-              </div>
-            </div>
-          )}
-          {product.related_products.length > 0 && (
-            <div className="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-              <div className="text-sm font-medium text-gray-500">
-                Related Products
-              </div>
-              <div className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                <ul>
-                  {product.related_products.map((product) => (
-                    <li key={product.url_key}>
-                      <Link
-                        target="_blank"
-                        href={`/products/${product.url_key}`}
+        <Grid
+          container
+          sx={{ display: "flex", alignItems: "center" }}
+          spacing={1}
+        >
+          <Grid xs={12} item md={6} mb="2rem">
+            <ImageCarousel images={images} />
+          </Grid>
+          {/* Product Details */}
+          <Grid item xs={12} md={6}>
+            <Box>
+              <Typography variant="h4" component="h1" gutterBottom>
+                {product.name}
+              </Typography>
+              <Typography variant="h6" color="text.secondary" gutterBottom>
+                ${product.price_range.minimum_price.regular_price.value}
+              </Typography>
+              {params.product.variants && (
+                <FormControl fullWidth sx={{ mb: 2 }}>
+                  <InputLabel color="warning" id="option-label">
+                    Choose an Option
+                  </InputLabel>
+                  <Select
+                    color="warning"
+                    labelId="option-label"
+                    id="option"
+                    value={option}
+                    label="Choose an Option"
+                    onChange={handleOptionChange}
+                  >
+                    {params.product.variants.map((variant) => (
+                      <MenuItem
+                        onClick={() => setProduct(variant.product)}
+                        key={variant.product.sku}
+                        value={variant.product.sku}
                       >
-                        {product.name}
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
+                        {variant.product.name}
+                      </MenuItem>
+                    ))}
+                  </Select>
+                </FormControl>
+              )}
+              <Box sx={{ display: "flex", alignItems: "center", mt: 2 }}>
+                <FormControl sx={{ mr: 2, width: "30%" }}>
+                  <InputLabel color="warning" id="quantity-label">
+                    Quantity
+                  </InputLabel>
+                  <Select
+                    color="warning"
+                    labelId="quantity-label"
+                    id="quantity"
+                    value={quantity.toString()}
+                    label="Quantity"
+                    onChange={handleQuantityChange}
+                  >
+                    {[1, 2, 3, 4, 5].map((qty) => (
+                      <MenuItem key={qty} value={qty}>
+                        {qty}
+                      </MenuItem>
+                    ))}
+                  </Select>
+                </FormControl>
+
+                {/* I couldn't find a way to get qty from magento. I can't disable the button */}
+                <Button
+                  onClick={notify}
+                  variant="contained"
+                  color="warning"
+                  fullWidth
+                >
+                  Add to Cart
+                </Button>
+                <Toaster />
+              </Box>
+            </Box>
+          </Grid>
+        </Grid>
+        <div>
+          <Typography variant="h4" className="font-bold">
+            Specifications
+          </Typography>
+          <div>
+            {product.categories.length > 0 && (
+              <div className="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                <div className="text-sm font-medium text-gray-500">
+                  Categories
+                </div>
+                <div className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+                  <ul>
+                    {product.categories.map((category) => (
+                      <li key={category.name}>{category.name}</li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+            )}
+            {product.rating_summary !== 0 && (
+              <div className="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                <div className="text-sm font-medium text-gray-500">Rating</div>
+                <div className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+                  {product.rating_summary} / 100
+                </div>
+              </div>
+            )}
+            {product.related_products.length > 0 && (
+              <div className="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                <div className="text-sm font-medium text-gray-500">
+                  Related Products
+                </div>
+                <div className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+                  <ul>
+                    {product.related_products.map((product) => (
+                      <li key={product.url_key}>
+                        <Link
+                          target="_blank"
+                          href={`/products/${product.url_key}`}
+                        >
+                          {product.name}
+                        </Link>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+            )}
+            <div className="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+              <div className="text-sm font-medium text-gray-500">
+                Review Count
+              </div>
+              <div className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+                {product.review_count}
               </div>
             </div>
-          )}
-          <div className="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-            <div className="text-sm font-medium text-gray-500">
-              Review Count
+            <div className="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+              <div className="text-sm font-medium text-gray-500">SKU</div>
+              <div className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+                {product.sku}
+              </div>
             </div>
-            <div className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-              {product.review_count}
-            </div>
-          </div>
-          <div className="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-            <div className="text-sm font-medium text-gray-500">SKU</div>
-            <div className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-              {product.sku}
-            </div>
-          </div>
-          <div className="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-            <div className="text-sm font-medium text-gray-500">
-              Stock Status
-            </div>
-            <div className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-              {product.stock_status}
+            <div className="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+              <div className="text-sm font-medium text-gray-500">
+                Stock Status
+              </div>
+              <div className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+                {product.stock_status}
+              </div>
             </div>
           </div>
         </div>
-      </div>
-      <div>
-        <Typography className="font-bold" variant="h4">
-          Description
-        </Typography>
-        <div dangerouslySetInnerHTML={{ __html: product.description.html }} />
-      </div>
-    </Box>
+        <div>
+          <Typography className="font-bold" variant="h4">
+            Description
+          </Typography>
+          <div dangerouslySetInnerHTML={{ __html: product.description.html }} />
+        </div>
+      </Box>
+    </>
   );
 }
 
