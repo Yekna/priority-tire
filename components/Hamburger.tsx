@@ -4,19 +4,15 @@ import {
   Drawer,
   IconButton,
   List,
-  ListItem,
   ListItemButton,
   ListItemText,
   useMediaQuery,
   Collapse,
 } from "@mui/material";
-import Link from "next/link";
-import { useEffect, useState } from "react";
-// import { useMediaQuery } from "usehooks-ts";
+import { useState } from "react";
 
 const Hamburger = () => {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
-  const [isOpen, setIsOpen] = useState(false);
   const [id, setId] = useState(-1);
   const isMobile = useMediaQuery("(max-width: 640px)");
 

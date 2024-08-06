@@ -1,4 +1,3 @@
-import { AspectRatio } from "@mui/icons-material";
 import {
   Card,
   CardMedia,
@@ -6,7 +5,6 @@ import {
   Typography,
   Button,
 } from "@mui/material";
-import Image from "next/image";
 import Link from "next/link";
 import { FC } from "react";
 
