@@ -35,23 +35,21 @@ export default function Home({
           />
         </picture>
       </section>
-      <section className="promotion max-w-[1280px] flex flex-col gap-5">
+      <section className="promotion max-w-[1280px] space-y-5">
         <Rebates rebates={rebates} />
-        <div>
-          <Typography className="text-center text-xl sm:text-3xl">
-            Save Now With Our Promotions
-          </Typography>
-          <ul className="flex gap-5">
-            {promotions.map((promotion, i) => (
-              <li key={i}>
-                <Promotion promotion={promotion} />
-              </li>
-            ))}
-          </ul>
-        </div>
+        <Typography variant="h2" className="text-center text-xl sm:text-3xl">
+          Save Now With Our Promotions
+        </Typography>
+        <ul className="flex gap-5">
+          {promotions.map((promotion, i) => (
+            <li key={i}>
+              <Promotion promotion={promotion} />
+            </li>
+          ))}
+        </ul>
       </section>
-      <section className="popular-products w-4/5 max-w-[1280px]">
-        <Typography className="text-center text-xl sm:text-3xl">
+      <section className="popular-products w-4/5 max-w-[1280px] space-y-5">
+        <Typography variant="h2" className="text-center text-xl sm:text-3xl">
           Popular Products
         </Typography>
         <Slider

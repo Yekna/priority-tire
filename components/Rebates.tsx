@@ -17,7 +17,7 @@ interface RebatesProps {
 const Rebates = ({ rebates }: RebatesProps) => {
   return (
     <>
-      <Typography className="text-center text-xl sm:text-3xl">
+      <Typography variant="h2" className="text-center text-xl sm:text-3xl">
         Save Now With Rebates
       </Typography>
       <ul className="flex gap-5 [&>li]:flex-1 flex-col sm:flex-row">
